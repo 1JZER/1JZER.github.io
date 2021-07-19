@@ -1,0 +1,745 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>Java Web 学习笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Bayern2JZ's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java Web 学习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-19 23:02" pubdate>
+        2021年7月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java Web 学习笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Java-web-学习笔记"><a href="#Java-web-学习笔记" class="headerlink" title="Java web 学习笔记"></a>Java web 学习笔记</h1><h4 id="1-关于Tomcat的设置"><a href="#1-关于Tomcat的设置" class="headerlink" title="1.关于Tomcat的设置"></a>1.关于Tomcat的设置</h4><p>tomcat 端口号默认为8080，比较常见，容易发生冲突<br>修改端口号：<br>Server.xml:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Connector</span> <span class="hljs-attr">port</span>=<span class="hljs-string">&quot;8080&quot;</span>&gt;</span>为端口号<br></code></pre></td></tr></table></figure>
+
+<h4 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Context</span> <span class="hljs-attr">docBase</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>​    docBase: 实际路径<br>​    path:虚拟路径<br>​    如</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Context</span> <span class="hljs-attr">docBase</span>=<span class="hljs-string">&quot;D:\Study&quot;</span> <span class="hljs-attr">path</span>=<span class="hljs-string">&quot;/Jspproject&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>​    访问Jspproject 相当于访问D:\study</p>
+<h4 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h4><p>访问：localhost:8888<br>如果是IE需要加http前缀</p>
+<h4 id="4"><a href="#4" class="headerlink" title="4."></a>4.</h4><p>webapps：放默认的项目<br>默认访问root</p>
+<p>在项目/WEB-INF/web.xml 中设置 默认的 初始页面<br>web.xml中的<welcome_file_list>中为默认访问优先级</p>
+<h4 id="5"><a href="#5" class="headerlink" title="5."></a>5.</h4><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs jsp">&lt;%局部变量、java语句%&gt;<br><br>&lt;%!<br>定义全局变量、方法<br>如：<br><span class="hljs-keyword">public</span> String bookName;<br><span class="hljs-function">pubilc <span class="hljs-title">fun</span><span class="hljs-params">()</span> </span><br><span class="hljs-function"></span>&#123;<br>&#125;   <br>%&gt;<br><br>&lt;%=用于输出%&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="7-JSP内置对象"><a href="#7-JSP内置对象" class="headerlink" title="7.JSP内置对象"></a>7.JSP内置对象</h4><p>jsp的置对象：不需要new也能使用<br>9大内置对象：</p>
+<ul>
+<li><p>out：输出对象</p>
+</li>
+<li><p>pageContext:</p>
+</li>
+<li><p>request:存储客户端向服务端发送的请求消息</p>
+<pre><code>         常见方法：
+</code></pre>
+<ul>
+<li>1.String getParameter(String name):根据请求的字段名key(input标签的name属性)返回字段值(value属性值)</li>
+<li>2.String[]  getParameterValues(String name ):根据请求的字段名返回多个字段值</li>
+<li>3.void setCharacterEncoding (“编码格式:UTF-8”)</li>
+<li>getRequestDispatcher(“b.jsp”)</li>
+<li> getServerContext…</li>
+</ul>
+</li>
+<li><p>response</p>
+</li>
+<li><p>session</p>
+</li>
+<li><p>applicaton</p>
+</li>
+<li><p>config</p>
+</li>
+<li><p>page</p>
+</li>
+<li><p>xception</p>
+</li>
+</ul>
+<h4 id="8-response-对象详解"><a href="#8-response-对象详解" class="headerlink" title="8.response 对象详解"></a>8.response 对象详解</h4><ul>
+<li><p>void addCookie(Cookie cookie)</p>
+<p>​     服务端向客户端增加Cookie 对象</p>
+</li>
+<li><p>void sendRedirect(String location) throws IOException</p>
+<pre><code> 页面跳转的一种方式
+</code></pre>
+</li>
+<li><p>void setContentType(String type)</p>
+<pre><code>   设置服务端的contentType 类型
+</code></pre>
+</li>
+</ul>
+<h4 id="9-请求转发和重定向的区别："><a href="#9-请求转发和重定向的区别：" class="headerlink" title="9.请求转发和重定向的区别："></a>9.请求转发和重定向的区别：</h4><p>地址栏|请求转发不变|重定向改变|</p>
+<hr>
+<p>是否保留第一次请求时的数据 |保留|不保留|<br>请求的次数| 1           |        2    |<br>跳转发生的位置      |          服务端   |     客户端发出的第二次跳转|</p>
+<h4 id="10-cookie和session"><a href="#10-cookie和session" class="headerlink" title="10.cookie和session"></a>10.cookie和session</h4><ul>
+<li>session(存在于服务端，不需要new)</li>
+<li>cookie(存在于客户端，不是内置对象，使用前需要new) </li>
+</ul>
+<h5 id="10-1-cookie："><a href="#10-1-cookie：" class="headerlink" title="10.1 cookie："></a>10.1 cookie：</h5><p>   cookie是服务端产生的，再发送给客户端保存<br>   相当于本地缓存的作用，但是安全性较差<br>   作用：可以提高服务端访问的效率，但是安全性较差。</p>
+<p>   <strong>提供的类</strong>：javax.servlet.http.Cookie</p>
+<p><strong>方法</strong>:</p>
+<ul>
+<li><p>public Cookie(String key,String value) (构造方法)</p>
+</li>
+<li><p> String getName()</p>
+</li>
+<li><p>String getValue()</p>
+</li>
+<li><p>void setMaxAge(int expiry) //设置最大有效期 （秒）</p>
+<p> <strong>发送的过程：</strong><br> 1.服务端准备Cookie</p>
+<pre><code>  response.addCookie(Cookie cookie)  
+</code></pre>
+<p> 2.页面跳转（转发，重定向）</p>
+<p> 3.客户端获取cookie:</p>
+<pre><code> request.getCookie();
+</code></pre>
+<p>__注意__：</p>
+<pre><code> a.服务端增加cookie是通过response对象；客户端获取对象：request对象
+</code></pre>
+</li>
+</ul>
+<p>​       b.一次只能获取全部的Cookie</p>
+<p>​        c.通过F12可以发现，除了自己设置的Cookie对象以外，还有一个name为jesessionid的  cookie</p>
+<p>​        d.建议cookie中只保存英文和数字，否则需要编码解码处理</p>
+<h5 id="10-2-session"><a href="#10-2-session" class="headerlink" title="10.2 session"></a>10.2 session</h5><p> 本意为会话<br> 会话的定义比较宏观<br> 开始-&gt;结束  是一次会话</p>
+<p> <strong>session执行机制:</strong><br>1.在客户端与服务端发出第一次请求时，()服务端会产生一个对应的session（用于保存该客户的信息）<br> 并且每一个session对象，都会有一个唯一的sessionId（用于区分其他session）</p>
+<p>2.服务端又会产生一个cookie，该cookie的name=JSESSIONID,value=服务端sessionId<br> 服务端在响应客户端时，会将JSESSIONID带给客户端</p>
+<p>3.这样一来，客户端就有一个cookie(JSESSIONID)<br> COOKIE中的JSESSIONID 和session中的sessionID一一对应，实现对客户端的识别<br> 因此，客户端的cookie就可以和服务端一一对应<br> (JSESSIONID-sessionID)</p>
+<p> 4.客户端第二次/第N次请求服务端时，服务端会先用客户端的cookie中的JSESSIONID 去服务端匹配 sessionid<br> 如果匹配成功，说明此用户已经不是第一次访问，无需登录</p>
+<p><strong>session特性：</strong></p>
+<ul>
+<li>session存储于服务端</li>
+<li>session是在同一个用户请求时共享</li>
+</ul>
+<p><strong>session方法</strong>：</p>
+<ul>
+<li>getID():获取sessionID</li>
+<li>boolean isNew():判断是否时第一次访问</li>
+<li> void invalidate():使session失效，如注销时可以使用</li>
+<li> void setAttribute()</li>
+<li> Object getAttribute()</li>
+<li>void setMaxInactiveInterval(秒)：设置最大有效非活动时间</li>
+<li> int getMaxInactiveInterval</li>
+</ul>
+<h5 id="11-JDBC"><a href="#11-JDBC" class="headerlink" title="11.JDBC"></a>11.JDBC</h5><p>JDBC DriverManager：管理不同的数据库驱动</p>
+<h5 id="11-1JDBC-API-主要功能"><a href="#11-1JDBC-API-主要功能" class="headerlink" title="11.1JDBC API 主要功能"></a>11.1JDBC API 主要功能</h5><ul>
+<li>与数据库建立链接</li>
+<li>2.发送SQL语句</li>
+<li>3.返回处理结果</li>
+</ul>
+<p>通过以下类/接口实现：</p>
+<ul>
+<li><p>DriverManager:管理JDBC驱动</p>
+</li>
+<li><p>Connection：连接,（通过DriverManager产生）</p>
+</li>
+<li><p>Connection产生操作数据库对象</p>
+<ul>
+<li>Connection产生Statement对象createStatement()</li>
+<li> Connection产生PreparedStatement对象:prepareStatement()</li>
+<li>Connection产生CallableStatement对象 prepareCall()</li>
+</ul>
+</li>
+</ul>
+<p> <strong>Statement操作数据库</strong> :<br>   增删改：executeUpdate()<br>   查询：  executeQuery()</p>
+<p><strong>ResultSet 保存结果集</strong><br>    next()<br>    previous()<br>    getXXX()</p>
+<p><strong>PreparedStatement操作数据库</strong>:<br>   增删改：executeUpdate()<br>   查询：  executeQuery<br>   赋值操作：setXXX</p>
+<p>   PareparedStatement示例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">String SQL=<span class="hljs-string">&quot;insert into B1 values(?,?,?)&quot;</span>;<br>pstmt=connection.prepareStatement(SQL); <span class="hljs-comment">//预编译</span><br>pstmt.setInt(<span class="hljs-number">1</span>,<span class="hljs-number">39</span>);<br>pstmt.setString(<span class="hljs-number">2</span>,<span class="hljs-string">&quot;abc&quot;</span>);<br>pstmt.setString(<span class="hljs-number">3</span>,<span class="hljs-string">&quot;abc&quot;</span>);<br>pstmt.excuteUpdate();<br></code></pre></td></tr></table></figure>
+
+<p> 推荐使用PreparedStatement</p>
+<p> 优势:</p>
+<ul>
+<li>1.方便  </li>
+<li> 2.高效率 </li>
+<li> 3.有效防止SQL注入（用户输入和开发人员的SQL语句融为一体）</li>
+</ul>
+<p> c.Statement(PreparedStatement)：增删查改（通过Connection产生）</p>
+<p> d.CallableStatement：调用数据库中的存储过程，存储函数</p>
+<p> e.Result：返回的结果集（通过Statement等产生）</p>
+<h5 id="11-2-jdbc访问数据库的具体步骤："><a href="#11-2-jdbc访问数据库的具体步骤：" class="headerlink" title="11.2.jdbc访问数据库的具体步骤："></a>11.2.jdbc访问数据库的具体步骤：</h5><ul>
+<li><p>1.导入驱动包，加载具体的驱动类</p>
+</li>
+<li><p>2.与数据库建立链接：通过connect对象</p>
+</li>
+<li><p>3.发送sql，执行</p>
+<ul>
+<li>增删改:stmt.executeUpdate() 返回一个数字</li>
+</ul>
+</li>
+<li><p>4.查询:  stmt.executeQuery() 返回一个ResultSet,类似于一张表</p>
+</li>
+<li><p>5.rs默认指向结果集的前一行</p>
+<ul>
+<li>rs.next()：1.下移指针<pre><code>              2.判断下移之后的元素是否为空
+                       3.如果有数据，返回true
+                 如果未非空，返回false
+</code></pre>
+</li>
+<li>  rs.getXXX():获取rs指向行的数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>查询示例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">String SQL2=<span class="hljs-string">&quot;SELECT * FROM B1&quot;</span>;<br> ResultSet rs=stmt.executeQuery(SQL2);<br> <span class="hljs-keyword">while</span>(rs.next())<br>&#123;<br>       <span class="hljs-keyword">int</span> bid=rs.getInt(<span class="hljs-string">&quot;bid&quot;</span>);         <span class="hljs-comment">//参数可以是字段名或者是下标，但是推荐使用字段名</span><br>       String bname=rs.getString(<span class="hljs-string">&quot;bname&quot;</span>);<br>       String color=rs.getString(<span class="hljs-string">&quot;color&quot;</span>);<br>       System.out.println(bid+<span class="hljs-string">&quot; &quot;</span>+bname+<span class="hljs-string">&quot; &quot;</span>+color);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>d.处理结果集</p>
+<h5 id="12-3-数据库驱动"><a href="#12-3-数据库驱动" class="headerlink" title="12.3 数据库驱动"></a>12.3 数据库驱动</h5><table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>驱动jar</th>
+<th>具体驱动类</th>
+<th>链接字符串(数据库名，IP地址和端口号)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mysql</td>
+<td>mysql-connector-java-x.jar</td>
+<td>com.mysql.jdbc.Driver</td>
+<td>jdbc:mysql://localhost:3306/数据库实例名</td>
+</tr>
+<tr>
+<td>sql server</td>
+<td>sqljdbc-x.jar</td>
+<td>com.microsoft.sqlserver.jdbc.SQLServerDriver</td>
+<td>jdbc:sqlserver://localhost:1433;databaseName=BiliClass</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="11-4-java-bean"><a href="#11-4-java-bean" class="headerlink" title="11.4.java bean"></a>11.4.java bean</h5><p> 将jsp的代码转移到java中，就是JavaBean</p>
+<p> javaBean的要求</p>
+<p> a.所有的属性都是private，并提供set/get<br> b.public修饰的类，public无参构造</p>
+<p> 从使用层面 java bean分为两类</p>
+<ul>
+<li><p>封装业务逻辑的JavaBean</p>
+</li>
+<li><p>封装数据的JavaBean:</p>
+<p> 对应于数据库的一张表</p>
+</li>
+</ul>
+<h4 id="12servelt"><a href="#12servelt" class="headerlink" title="12servelt:"></a>12servelt:</h4><p>java 类必须符合一定的规范才是servlet<br>规范：</p>
+<ul>
+<li>必须继承 javax.servlet.http.Httpserver</li>
+<li>重写其中的doGet()或 doPost()方法</li>
+</ul>
+<p>servlet要想使用，必须配置web.xml或者@servlet（注解方式）<br>Servlet2.5: web.xml<br>Servlet3.0: @WebServlet</p>
+<p><strong>1.Servlet2.5:</strong><br>步骤：<br>1.编写一个类，继承HttpServlet<br>2.重写doGet()、doPost()方法<br>3.编写web.xml中的servlet映射关系</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">servlet</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-class</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">servlet-class</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet-mapping</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet-mapping</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>2.Servlet 生命周期</strong><br>a.加载<br>b.初始化: init() 该方法会在Servlet被加载并实例化以后执行<br>c.服务；service()-&gt;doGet()-&gt;doPost()<br>d.销毁:destroy() Servlet 被系统回收时执行<br>e.卸载：</p>
+<p>init():默认第一次访问Servlet时执行，并且只执行一次<br>       可以修改为tomcat启动时自动执行<br>       2.5方式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">servlet</span>&gt;</span><br>              <span class="hljs-tag">&lt;<span class="hljs-name">load-on-startup</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">load-on-start-up</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p> 3.0方式：<br>       @WebServlet(value=”/WelcomeServlet”,loadOnStartup=1)<br>service():调用几次执行几次<br>destroy():关闭Tomcat服务时执行</p>
+<h5 id="3-Servlet-API"><a href="#3-Servlet-API" class="headerlink" title="3.Servlet API:"></a>3.Servlet API:</h5><p>由两个软件包组成</p>
+<ul>
+<li>对应于 HTTP协议的软件包</li>
+<li>对应于其它协议的软件包<br>我们学习的Servlet 是位于javax.servlet.http包中的类和接口，是基础HTTP协议</li>
+</ul>
+<p>PrintWriter out=response.getWriter()后可以使用Writer</p>
+<h5 id="4-servlet继承关系"><a href="#4-servlet继承关系" class="headerlink" title="4.servlet继承关系"></a>4.servlet继承关系</h5><p>ServletConfig接口<br>getServletContext():获取Servlt 上下文对象<br>getInitParameter(String name):在当前servlet范围内，获取名为name的参数值</p>
+<p>ServletContext中的常见方法(application)：<br>getRealPath()<br>getContextPath()<br>setAttribute()<br>getAttribute()<br>getInitParameter():在当前web范围内，获取名为name的参数值</p>
+<h5 id="13-MVC设计模式："><a href="#13-MVC设计模式：" class="headerlink" title="13.MVC设计模式："></a>13.MVC设计模式：</h5><table>
+<thead>
+<tr>
+<th>M</th>
+<th>Model (模型)</th>
+<th>一个功能。用JavaBean来实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V</td>
+<td>View (视图)</td>
+<td>负责页面的展示以及与用户交互。 使用HTML/CSS/JS/Jquery 等前端技术实现</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Controller</td>
+<td>控制器: 接收各种请求，将请求跳转到模型进行处理；模型处理完毕后&lt;br   再将处理的结果返回给请求处。可以用JSP实现，但是一般建议使用Servlet实现控制器</td>
+</tr>
+</tbody></table>
+<p><strong>三层架构：</strong><br> 与MVC的设计模式目标一直：都是为了解耦合，提高代码的复用<br> 上层将请求发送给下层， 下层处理后返回给上层</p>
+<p> 1.表示层(USL,User,Show Layer:视图层)</p>
+<ul>
+<li><p>前台：对应MVC中的View，用于和用户交互、界面的显示</p>
+<pre><code>   jsp js html css jquery等
+   一般位于web目录下
+</code></pre>
+</li>
+<li><p>后台：对应于MVC中的Controller,用户控制跳转、调用业务逻辑层</p>
+<pre><code>   Servlet(Spring MVC  Struts2)
+   一般位于xxx.servlet包中
+</code></pre>
+</li>
+</ul>
+<p> 2.业务逻辑层(BLL,Business Logic Layer:service层)</p>
+<ul>
+<li>用于数据，带逻辑性的操作<pre><code>   一般位于xxx.service包中
+</code></pre>
+</li>
+</ul>
+<p> 3.数据库访问层(DAL,Data Assess Layer:DAO层)</p>
+<ul>
+<li>直接访问数据库操作、原子性的操作（增删查改）<pre><code>   一般位于xxx.dao包中
+</code></pre>
+</li>
+</ul>
+<p><strong>三层优化：</strong><br>  1.加入接口<br>   建议面向接口编程；先实现接口再实现类<br>   –service、DAO加入接口<br>   –接口的实现与规范<br>       接口:interface       起名 I实体类Service  IStudentSerice<br>       实现类：implement    起名  实体类SerciceImpl StudentServiceImpl</p>
+<pre><code>   接口：I实体层所在的包名
+   实现类：实体类层所在包名Impl
+</code></pre>
+<p>  2.DBUtil</p>
+<p>实现分页<br> 要实现分页，必须知道从哪里开始到哪里结束<br> 分页严格依赖于SQL语句</p>
+<p> My SQL从0开始计数，Oracle/Sql server从1开始计数</p>
+<p> MySQL实现分页的SQL：<br> limit 开始，多少条<br> 第0页<br> select * from student limit 0,10;<br> 第1页<br> select * from student limit 10,10;<br> 第2页<br> select * from student limit 20,10;<br> 第n页<br> select * from student limit n*10,10;<br> 即<br> select * from student limit 页数*页面大消,页面大小</p>
+<p> oracle分页（没有看完）<br> (oracle没有limit)<br> select * from studnet where sno&gt;=(n-1)<em>10+1 and sno&lt;=n</em>10  此种写法的前提必须是ID值连续，否则无法满足每页显示10条数据</p>
+<p> 2.select rownum,t.* from &gt;=(n-1)<em>10+1 and sno&lt;=n</em>10 order by sno;<br> rownumber 不能查询大于0的数据</p>
+<p>Sql Server分页<br> Sql Server从1开始</p>
+<p> row_number()使用方法：<br> row_number() over(字段值)</p>
+<p> select *<br> from(<br>        select row_number() over(sno ordby sno asc) as r,* from student</p>
+<pre><code>    where r&lt;=n*10
+    
+    row_number()&lt;=n*10
+</code></pre>
+<p> )<br> where r&gt;=(n-1)*10+1 and ;</p>
+<p> 新的版本：<br> select  * from student order by sno<br> offser (页数-1)*页面大小+1 rows fetch next 页面大消 rows only;</p>
+<p> 分页实现：<br> 5个变量（属性）<br> 1.数据总数                         |  查数据库 (select count(*) …)<br> 2.页面大小（每页显示的数据条数） 30  |用户自定义<br> 3.总页数                           |用户自定义<br> 4.当前页的页码（页码）              |程序自动计算=（数据总数/页面大小）向上取整</p>
+<p> 5.当前页的对象集合（实体类集合）：每页显示的所有数据的集合    |查数据库，分页SQL</p>
+<p>mybatis<br>  1.创建maven项目<br>  2.配置maven依赖<br>  3.配置mybatis核心配置文件<br>       mybatis 配置文件<br>  4.编写核心工具类<br>  5.编写代码<br>    1.实体类<br>    2.Dao接口<br>    3.接口实现类<br>       由原来的impl转换为mapper配置文件</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaWeb/">JavaWeb</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-9-BFS%E5%9F%BA%E7%A1%80/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">蓝桥杯算法笔记<9> BFS基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/19/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Spring学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

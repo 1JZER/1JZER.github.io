@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>蓝桥杯算法笔记&lt;8&gt; 高精度系列 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Bayern2JZ's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="蓝桥杯算法笔记<8> 高精度系列">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-19 23:52" pubdate>
+        2021年7月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      741 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">蓝桥杯算法笔记&lt;8&gt; 高精度系列</h1>
+            
+            <div class="markdown-body">
+              <h3 id="高精度加法"><a href="#高精度加法" class="headerlink" title="高精度加法"></a>高精度加法</h3><p>高精度加法归根结底是一个模拟人工加法的过程<br>大致要点如下<br>Ⅰ.使用两个数组a,b<strong>倒序存储</strong>输入的数字，这样能比较方便地处理进位问题<br>Ⅱ.在进行加法地过程中，使用一个指针 <em>i</em> 指向当前正在相加的位置,并开一个t变量存储进位<br>Ⅲ.如果<em>a[i]<em>或</em>b[i]<em>存在，就使得</em>t</em>加上 <em>a[i]<em>或</em>b[i]</em><br>Ⅳ.向结果数组<em>c</em>中加入<em>t%10</em><br>Ⅴ.<em>t=t/10</em> 完成进位，为下一轮运算的进位作准备<br>Ⅵ.（<strong>易错</strong>）在循环相加各个位之后，<em>t</em>中仍然可能有残余的数字没有加入到结果数组中，如50 + 50 这种场景，循环后<em>c</em>数组中为00，t为1，所以需要手动添加剩余的值。<br>实现代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">add</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt; a,vector&lt;<span class="hljs-keyword">int</span>&gt; b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> t=<span class="hljs-number">0</span>;<br>    vector&lt;<span class="hljs-keyword">int</span>&gt; c;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;a.<span class="hljs-built_in">size</span>()||i&lt;b.<span class="hljs-built_in">size</span>();i++)  <br>    &#123;<br>        <span class="hljs-keyword">if</span>(i&lt;a.<span class="hljs-built_in">size</span>()) t+=a[i];<br>        <span class="hljs-keyword">if</span>(i&lt;b.<span class="hljs-built_in">size</span>()) t+=b[i];<br>           <br>        c.<span class="hljs-built_in">push_back</span>(t%<span class="hljs-number">10</span>);<br>        t/=<span class="hljs-number">10</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(t)<br>    c.<span class="hljs-built_in">push_back</span>(t);<br>    <span class="hljs-keyword">return</span> c;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="高精度减法"><a href="#高精度减法" class="headerlink" title="高精度减法"></a>高精度减法</h3><p>高精度减法也是一个模拟人工减法的过程，但是减法有可能出现负数，实现起来比高精度加法复杂<br>大致分为以下几个过程</p>
+<h4 id="比较两个数组谁更大"><a href="#比较两个数组谁更大" class="headerlink" title="比较两个数组谁更大"></a>比较两个数组谁更大</h4><p>实现如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">cmp</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt; &amp;a,vector&lt;<span class="hljs-keyword">int</span>&gt; &amp;b)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-comment">/*位数多的大*/</span><br>	<span class="hljs-keyword">if</span>(a.<span class="hljs-built_in">size</span>()!=b.<span class="hljs-built_in">size</span>())<br>		<span class="hljs-keyword">return</span> a.<span class="hljs-built_in">size</span>()&gt;b.<span class="hljs-built_in">size</span>();	<br>	<span class="hljs-comment">/*位数相同则逐位比较*/</span><br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;a.<span class="hljs-built_in">size</span>();i++)<br>		<span class="hljs-keyword">if</span>(a[i]!=b[i])<br>			<span class="hljs-keyword">return</span> a[i]&gt;b[i];<br>	<span class="hljs-comment">/*经历了上面两步都还没有返回，说明相等，直接return*/</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h4 id="较大的a-和较小的b-，进行高精度减法"><a href="#较大的a-和较小的b-，进行高精度减法" class="headerlink" title="较大的a[]和较小的b[]，进行高精度减法"></a>较大的a[]和较小的b[]，进行高精度减法</h4><p>Ⅰ.需要开一个int t 来记录之前是否有过借位<br>Ⅱ.每次运算，分够不够减两种情况</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">如<br><span class="hljs-code">    A3 A2 A1 A0</span><br><span class="hljs-section">-      B2 B1 B0</span><br><span class="hljs-section">----------------------</span><br><span class="hljs-code">						 |--- if(Ai-Bi&gt;=0)  Ai-Bi-t</span><br>对于每个Ai-Bi-t分两种情况 |<br><span class="hljs-code">						  |---if(Ai-Bi&lt;0)  Ai-Bi+10-t (需要借一位)</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">mine</span><span class="hljs-params">(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; a, vector&lt;<span class="hljs-keyword">int</span>&gt; &amp;b)</span></span><br><span class="hljs-function"></span>&#123;<br>	vector&lt;<span class="hljs-keyword">int</span>&gt; c;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>,t=<span class="hljs-number">0</span>;i&lt;a.<span class="hljs-built_in">size</span>();i++)<br>	&#123;<br>			<span class="hljs-comment">//进位</span><br>		t=a[i]-t;<br>		<span class="hljs-keyword">if</span>(i&lt;b.<span class="hljs-built_in">size</span>()) t-=b[i];  <span class="hljs-comment">//由于b较小，可能没有第i位，所以在减b之前判断</span><br>		c.<span class="hljs-built_in">push_back</span>((t+<span class="hljs-number">10</span>)%<span class="hljs-number">10</span>); <span class="hljs-comment">//两种情况合二为一写</span><br>		<span class="hljs-comment">/*</span><br><span class="hljs-comment">		    如果 t (或者说a[i]-b[i]-t)&lt; 0  这种情况需要借位 体现在本轮循环,即push_back(t+10) 并在循环后使t为1</span><br><span class="hljs-comment">		    如果 t (或者说a[i]-b[i]-t)&gt; 0  这种情况无需要借位 体现在本轮循环中,即是push_back(t) 并在循环后使t为0</span><br><span class="hljs-comment">		    这两种情况都能合二为一地写成push_back((t+10)%10)</span><br><span class="hljs-comment">		*/</span><br>		<span class="hljs-keyword">if</span>(t&lt;<span class="hljs-number">0</span>) t=<span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">else</span> t=<span class="hljs-number">0</span>;<br>	&#125;<br>	<br>	<span class="hljs-comment">/*去除前导零*/</span><br>	<span class="hljs-keyword">while</span>(c.<span class="hljs-built_in">size</span>()&gt;<span class="hljs-number">1</span>&amp;&amp;c.<span class="hljs-built_in">back</span>()==<span class="hljs-number">0</span>) c.<span class="hljs-built_in">pop_back</span>();<br>	<span class="hljs-keyword">return</span> c;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/">高精度</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-7-%E9%80%92%E5%BD%92%E3%80%81%E9%80%92%E6%8E%A8%E4%B8%8EDFS/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">蓝桥杯算法笔记<7> 递归、递推与DFS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-9-BFS%E5%9F%BA%E7%A1%80/">
+                        <span class="hidden-mobile">蓝桥杯算法笔记<9> BFS基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

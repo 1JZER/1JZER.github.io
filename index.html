@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Bayern2JZ's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/background.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Welcom to 2JZ's blog">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/20/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_self">
+          KMP字符串
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/20/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_self">
+          
+          
+            
+          
+          KMP字符串KMP算法是基础算法中的一个难点，虽然Acwing中已经有简短易记的代码，但是如果不理解KMP原理，在做一些变形题的时候还是会很困难。
+具体的过程可以参照知乎的高赞回答，这里写一些自己的补充。
+1.next数组next数组存在两种类型
+
+下标从1开始 即next[0]=0
+下标从0开始  即next[0]=-1
+
+这两种类型的本质是一样的
+在第1种next数组中:
+
+next[i]=j
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-20 00:10" pubdate>
+              2021-07-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/KMP/">KMP</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/20/PAT_ADV%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B00x0001/" target="_self">
+          PAT_ADV 刷题笔记 0X0001
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/20/PAT_ADV%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B00x0001/" target="_self">
+          
+          
+            
+          
+          刷题笔记2021.7.12—2021.7.14
+1084 坏掉的键盘关于string遍历的问题，在这个样例中，虽然在IDE中查找b[10]没有任何值，但是cout&lt;&lt;b[10]却不会有任何问题，cout&lt;&lt;b[11]就会报错
+为了保险起见，还是在b串的末尾加上了’#’
+12345678910111213141516171819202122232425262728293031
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-20 00:06" pubdate>
+              2021-07-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">刷题笔记</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/PAT-ADV/">PAT_ADV</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-6-%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80/" target="_self">
+          蓝桥杯算法笔记&lt;6&gt; 数论基础
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-6-%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80/" target="_self">
+          
+          
+            
+          
+             质数，最大公约数等等和处理数字有关的题目会经常出现在算法题中。对于常见的处理方式，应该背一个最优解的模板。
+1.求最大公约数最大公约数：也称最大公约数、最大公因子，指两个或多个整数共有约数中最大的一个。
+
+在实际做题时，辗转相除法(欧几里得算法)是最大公约数的一种常用的求法
+由于(a,b)=(b,a%b)能使用如下算法计算最大公约数
+123456int gcd(int a,int b)&#1
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:59" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+            
+              <a href="/tags/%E6%95%B0%E8%AE%BA/">数论</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-1-%E4%BA%8C%E5%88%86/" target="_self">
+          蓝桥杯算法笔记&lt;1&gt; 二分
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-1-%E4%BA%8C%E5%88%86/" target="_self">
+          
+          
+            
+          
+          二分算法的例题
+给定一个按照升序排列的长度为n的整数数组，以及 q 个查询。
+对于每个查询，返回一个元素k的起始位置和终止位置（位置从0开始计数）。
+如果数组中不存在该元素，则返回“-1 -1”。
+输入格式第一行包含整数n和q，表示数组长度和询问个数。
+第二行包含n个整数（均在1~10000范围内），表示完整数组。
+接下来q行，每行包含一个整数k，表示一个询问元素。
+输出格式共q行，每行包含两个整
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:54" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86/">二分</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-2-%E5%89%8D%E7%BC%80%E5%92%8C/" target="_self">
+          蓝桥杯算法笔记&lt;2&gt; 二分
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-2-%E5%89%8D%E7%BC%80%E5%92%8C/" target="_self">
+          
+          
+            
+          
+          k倍区间给定一个长度为 N 的数列，A1,A2,…AN，如果其中一段连续的子序列 Ai,Ai+1,…Aj 之和是 K 的倍数，我们就称这个区间 [i,j] 是 K 倍区间。
+你能求出数列中总共有多少个 K 倍区间吗？
+输入格式第一行包含两个整数 N 和 K。
+以下 N 行每行包含一个整数 Ai。
+输出格式输出一个整数，代表 K 倍区间的数目。
+数据范围1≤N,K≤100000,1≤Ai≤10000
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:54" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+            
+              <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">前缀和</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-3-%E6%A8%A1%E6%8B%9F/" target="_self">
+          蓝桥杯算法笔记&lt;3&gt; 模拟
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-3-%E6%A8%A1%E6%8B%9F/" target="_self">
+          
+          
+            
+          
+          先引入一个例题：
+Acwing 1210.连号区间数小明这些天一直在思考这样一个奇怪而有趣的问题：
+在 1∼N 的某个排列中有多少个连号区间呢？
+这里所说的连号区间的定义是：
+如果区间 [L,R] 里的所有元素（即此排列的第 L 个到第 R 个元素）递增排序后能得到一个长度为 R−L+1 的“连续”数列，则称这个区间连号区间。
+当 N 很小的时候，小明可以很快地算出答案，但是当 N 变大的时候，问
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:54" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+            
+              <a href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-4-%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" target="_self">
+          蓝桥杯算法笔记&lt;4&gt; 图的存储
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-4-%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8/" target="_self">
+          
+          
+            
+          
+          图的存储有多种方式，对于稀疏图，可以用邻接表来存储，对于稠密图，可以用邻接矩阵存储在实际的考试中，使用vector（动态数组）能十分便捷地存储稀疏图例题：第四届蓝桥杯A组真题：大臣的旅费题目链接：https://www.acwing.com/problem/content/description/1209/
+这题中，需要存储节点数量较大， 属于稀疏图需要使用vector存图后，找到图的直径
+闫老板
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:54" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+            
+              <a href="/tags/%E5%9B%BE/">图</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-5-%E8%B4%AA%E5%BF%83%E5%9F%BA%E7%A1%80/" target="_self">
+          蓝桥杯算法笔记&lt;5&gt; 贪心基础
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-5-%E8%B4%AA%E5%BF%83%E5%9F%BA%E7%A1%80/" target="_self">
+          
+          
+            
+          
+          贪心的思想即在每一步中，采取某种短视的做法达到局部最优解，在完成所有步骤后，就达到了全局的最优解。这种算法属于较难的一种，既没有固定的套路/模板，而且某些贪心问题也比较难以证明，在实际做题时，需要多积累一些贪心模型，遇到实际的问题时，尽量往已经收悉的模型上靠，这样能降低一些解题难度。
+
+例题1：股票买卖题目链接：acwing.1055 
+数据范围为十万，所以只能选用时间复杂度为n或者nlogn的算
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:53" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+            
+              <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-7-%E9%80%92%E5%BD%92%E3%80%81%E9%80%92%E6%8E%A8%E4%B8%8EDFS/" target="_self">
+          蓝桥杯算法笔记&lt;7&gt; 递归、递推与DFS
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-7-%E9%80%92%E5%BD%92%E3%80%81%E9%80%92%E6%8E%A8%E4%B8%8EDFS/" target="_self">
+          
+          
+            
+          
+          1.递归实现指数型枚举从 1∼n 这 n 个整数中随机选取任意多个，输出所有可能的选择方案。
+输入格式输入一个整数 n。
+输出格式每行输出一种方案。
+同一行内的数必须升序排列，相邻两个数用恰好 1 个空格隔开。
+对于没有选任何数的方案，输出空行。
+本题有自定义校验器（SPJ），各行（不同方案）之间的顺序任意。
+数据范围1≤n≤15输入样例：3输出样例：
+322 311 31 21 2 3
+代码：
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:53" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E9%80%92%E6%8E%A8/">递归与递推</a>
+            
+              <a href="/tags/DFS/">DFS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-8-%E9%AB%98%E7%B2%BE%E5%BA%A6%E7%B3%BB%E5%88%97/" target="_self">
+          蓝桥杯算法笔记&lt;8&gt; 高精度系列
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0-8-%E9%AB%98%E7%B2%BE%E5%BA%A6%E7%B3%BB%E5%88%97/" target="_self">
+          
+          
+            
+          
+          高精度加法高精度加法归根结底是一个模拟人工加法的过程大致要点如下Ⅰ.使用两个数组a,b倒序存储输入的数字，这样能比较方便地处理进位问题Ⅱ.在进行加法地过程中，使用一个指针 i 指向当前正在相加的位置,并开一个t变量存储进位Ⅲ.如果a[i]或b[i]存在，就使得t加上 a[i]或b[i]Ⅳ.向结果数组c中加入t%10Ⅴ.t=t/10 完成进位，为下一轮运算的进位作准备Ⅵ.（易错）在循环相加各个位之后
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 23:52" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a>
+            
+              <a href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/">高精度</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
