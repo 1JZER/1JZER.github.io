@@ -241,7 +241,7 @@
 <p><code>next[i]=j</code> 意为 ``p[1,j]=p[i-j+1,i]`</p>
 </blockquote>
 <p>也就是说，如果出现了下图情况的不匹配</p>
-<p><img src="img/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2/1.png" srcset="/img/loading.gif" lazyload alt="image-20210718213811721"></p>
+<p><img src="/img/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2/1.png" srcset="/img/loading.gif" lazyload alt="image-20210718213811721"></p>
 <p>就能使<code>j=next[j]</code>,从而开始新一轮的匹配</p>
 <p>求这种next数组的代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>,j = <span class="hljs-number">0</span>;j &lt;= n; i ++ )<br>&#123;<br>    <span class="hljs-keyword">while</span>(j &amp;&amp; p[i] != p[j+<span class="hljs-number">1</span>]) j = ne[j];<br>    <span class="hljs-keyword">if</span>(p[i] == p[j + <span class="hljs-number">1</span>]) j++;<br>    ne[i] = j;<br>&#125;<br></code></pre></td></tr></table></figure>
