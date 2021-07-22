@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>DFS 和 BFS - Bayern2jz&#39;sBlog | Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Bayern2JZ's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DFS 和 BFS">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-22 16:28" pubdate>
+        2021年7月22日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DFS 和 BFS</h1>
+            
+            <div class="markdown-body">
+              <h2 id="DFS和BFS简介"><a href="#DFS和BFS简介" class="headerlink" title="DFS和BFS简介"></a>DFS和BFS简介</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>数据结构</th>
+<th>性质</th>
+<th>空间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DFS</td>
+<td>stack</td>
+<td>不具有最短性</td>
+<td>O(h)</td>
+</tr>
+<tr>
+<td>BFS</td>
+<td>queue</td>
+<td>最短性</td>
+<td>O(2^h)</td>
+</tr>
+</tbody></table>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><ol>
+<li><p>回溯</p>
+<ul>
+<li><p>回溯之后，一定要恢复现场</p>
+<p>如在<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/844/">842. 排列数字 - AcWing题库</a>中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">g[x] = i;<br>st[i] = <span class="hljs-literal">true</span>;<br><span class="hljs-built_in">dfs</span>(x + <span class="hljs-number">1</span>);<br>st[i] = <span class="hljs-literal">false</span>;	<span class="hljs-comment">//恢复现场</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>剪枝</p>
+</li>
+</ol>
+<h2 id="树和图的存储"><a href="#树和图的存储" class="headerlink" title="树和图的存储"></a>树和图的存储</h2><p>由于树是特殊的图，所以这里只介绍图的存储</p>
+<h3 id="1-邻接矩阵-（用的少）"><a href="#1-邻接矩阵-（用的少）" class="headerlink" title="1.邻接矩阵 （用的少）"></a>1.邻接矩阵 （用的少）</h3><p>**使用<code>g[a,b]</code>表示 <code>a-&gt;b</code> 的一条边 **</p>
+<h3 id="2-邻接表"><a href="#2-邻接表" class="headerlink" title="2.邻接表"></a>2.邻接表</h3><p><strong>对应每个点，开一个单链表,每个单链表中存储能够达到的点</strong></p>
+<p>存储的操作类似于hash表 拉链法</p>
+<p><img src="C:\Users\2JZ\AppData\Roaming\Typora\typora-user-images\image-20210722130506908.png" srcset="/img/loading.gif" lazyload alt="image-20210722130506908"></p>
+<p><strong>实现代码：</strong></p>
+<ol>
+<li>存储：</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">100010</span>,M = <span class="hljs-number">2</span> * N;<br><br><span class="hljs-keyword">int</span> h[N];	<br><span class="hljs-keyword">int</span> e[M];	<br><span class="hljs-keyword">int</span> ne[M];	<br><span class="hljs-keyword">int</span> idx;	<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span>	<span class="hljs-comment">//连一条节点a-&gt;b的边</span></span><br><span class="hljs-function"></span>&#123;<br>	e[idx] = b;<br>	ne[idx] = h[a];<br>	h[a] = idx++;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">memset</span>(h, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span> h); <span class="hljs-comment">//初始化</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>节点编号<strong>一定是存储在<code>e[]</code>中，不会存储在<code>h[]</code>中</strong>。</li>
+<li>使用邻接表，一定要将**<code>h[]</code>初始化为<code>-1</code>**</li>
+<li>如果有<code>N</code>个节点，<code>e[]</code> <code>ne[]</code>一定要开<code>2N</code>个</li>
+</ul>
+<h2 id="树和图的遍历"><a href="#树和图的遍历" class="headerlink" title="树和图的遍历"></a>树和图的遍历</h2><h3 id="图的深度优先遍历"><a href="#图的深度优先遍历" class="headerlink" title="图的深度优先遍历"></a>图的深度优先遍历</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">bool</span> st[N];  	<span class="hljs-comment">//用于记录是否遍历过</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>	st[u] == <span class="hljs-literal">true</span>;	<span class="hljs-comment">//标记当前点已经被搜过了</span><br>	<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = h[u]; i != <span class="hljs-number">-1</span>; i = ne[i])	<span class="hljs-comment">//遍历u的所有出边,类似于遍历单链表</span><br>	&#123;<br>		<span class="hljs-keyword">int</span> j = e[i];	<span class="hljs-comment">//获取i对应的节点编号</span><br>		<span class="hljs-keyword">if</span> (!st[j]) <br>            <span class="hljs-built_in">dfs</span>(j);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>:</p>
+<p>遍历循环条件 <code>i != -1</code>,区别于双链表的<code>ne[i]! = -1</code></p>
+<h3 id="图的宽度优先遍历"><a href="#图的宽度优先遍历" class="headerlink" title="图的宽度优先遍历"></a>图的宽度优先遍历</h3><blockquote>
+<p>应用：求拓扑序列</p>
+<p>拓扑序列：针对有向无环图(AOV网)，不唯一</p>
+<ul>
+<li>对于每条边，起点都在终点前面</li>
+</ul>
+<p>如：<img src="C:\Users\2JZ\AppData\Roaming\Typora\typora-user-images\image-20210722155007108.png" srcset="/img/loading.gif" lazyload alt="image-20210722155007108"></p>
+<ul>
+<li>若有向图中存在环， 则不可能有拓扑序列</li>
+<li>一个有向无环图（拓扑图），一定存在一个拓扑序列</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>引入概念：度</p>
+<p>入度：有多少条边指向自己；出度：有多少条边出去</p>
+</blockquote>
+<p>求拓扑序列的方式：</p>
+<ol>
+<li><p>所有入度为0的点，都可以作为起点（没有任何一个点在前面）</p>
+<p>因此，先把所有<strong>入度为0的点入队</strong></p>
+</li>
+<li><p>循环：</p>
+<ul>
+<li><p>选择一个入度为 0 的顶点，并将它输出</p>
+</li>
+<li><p>删除图中从顶点连出的所有边</p>
+</li>
+</ul>
+</li>
+<li><p>若输出的顶点数小于图中的顶点数，则表示该图存在回路，即无法拓扑排序，</p>
+<p>否则，输出的就是拓扑序列 （不唯一）</p>
+</li>
+</ol>
+<p>下面这篇博客写出了详细的求解过程</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22238021/article/details/79496267">拓扑排序_Unique-You的博客-CSDN博客_拓扑序列</a></p>
+<p>具体代码见后面例题</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h3 id="图的深搜"><a href="#图的深搜" class="headerlink" title="图的深搜"></a>图的深搜</h3><p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/848/">846. 树的重心 - AcWing题库</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span>	<span class="hljs-comment">//使用memset需要引入</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>; <span class="hljs-comment">//数据范围是10的5次方</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> M = <span class="hljs-number">2</span> * N; <br><br><span class="hljs-keyword">int</span> h[N]; <br><span class="hljs-keyword">int</span> e[M]; <br><span class="hljs-keyword">int</span> ne[M]; <br><span class="hljs-keyword">int</span> idx; <br><span class="hljs-keyword">int</span> n; <br><span class="hljs-keyword">int</span> ans = N;<br><br><span class="hljs-keyword">bool</span> st[N]; <span class="hljs-comment">//记录节点是否被访问过，访问过则标记为true</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>    e[idx] = b, ne[idx] = h[a], h[a] = idx++;<br>&#125;<br><br><br><span class="hljs-comment">//返回以u为根的子树中节点的个数，包括u节点</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>; <span class="hljs-comment">//存储 删掉某个节点之后，最大的连通子图节点数</span><br>    st[u] = <span class="hljs-literal">true</span>; <span class="hljs-comment">//标记访问过u节点</span><br>    <span class="hljs-keyword">int</span> sum = <span class="hljs-number">1</span>; <span class="hljs-comment">//存储 以u为根的树 的节点数, 包括u，如图中的4号节点</span><br><br>    <span class="hljs-comment">//访问u的每个子节点</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = h[u]; i != <span class="hljs-number">-1</span>; i = ne[i]) &#123;<br>        <span class="hljs-keyword">int</span> j = e[i];<br>        <span class="hljs-comment">//因为每个节点的编号都是不一样的，所以 用编号为下标 来标记是否被访问过</span><br>        <span class="hljs-keyword">if</span> (!st[j]) &#123;<br>            <span class="hljs-keyword">int</span> s = <span class="hljs-built_in">dfs</span>(j);  <span class="hljs-comment">// u节点的单棵子树节点数 如图中的size值</span><br>            res = <span class="hljs-built_in">max</span>(res, s); <span class="hljs-comment">// 记录最大联通子图的节点数</span><br>            sum += s; <span class="hljs-comment">//以j为根的树 的节点数</span><br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">//n-sum 如图中的n-size值，不包括根节点4；</span><br>    res = <span class="hljs-built_in">max</span>(res, n - sum); <span class="hljs-comment">// 选择u节点为重心，最大的 连通子图节点数</span><br>    ans = <span class="hljs-built_in">min</span>(res, ans); <span class="hljs-comment">//遍历过的假设重心中，最小的最大联通子图的 节点数</span><br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">memset</span>(h, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span> h); <span class="hljs-comment">//初始化h数组 -1表示尾节点</span><br>    cin &gt;&gt; n; <span class="hljs-comment">//表示树的结点数</span><br><br>    <span class="hljs-comment">// 题目接下来会输入，n-1行数据，</span><br>    <span class="hljs-comment">// 树中是不存在环的，对于有n个节点的树，必定是n-1条边</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++) &#123;<br>        <span class="hljs-keyword">int</span> a, b;<br>        cin &gt;&gt; a &gt;&gt; b;<br>        <span class="hljs-built_in">add</span>(a, b), <span class="hljs-built_in">add</span>(b, a); <span class="hljs-comment">//无向图</span><br>    &#125;<br><br>    <span class="hljs-built_in">dfs</span>(<span class="hljs-number">1</span>); <span class="hljs-comment">//可以任意选定一个节点开始 u&lt;=n</span><br><br>    cout &lt;&lt; ans &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="图的宽搜"><a href="#图的宽搜" class="headerlink" title="图的宽搜"></a>图的宽搜</h3><p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/849/">847. 图中点的层次 - AcWing题库</a></p>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N=<span class="hljs-number">100010</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> M = <span class="hljs-number">2</span> * N; <br><span class="hljs-keyword">int</span> h[N], e[N], idx, ne[N];<br><span class="hljs-keyword">int</span> d[N]; <span class="hljs-comment">//存储每个节点离起点的距离  d[1]=0</span><br><span class="hljs-keyword">int</span> q[N]; <span class="hljs-comment">//存储层次遍历序列 0号节点是编号为1的节点</span><br><br><span class="hljs-keyword">int</span> n, m; <br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>    e[idx]=b,ne[idx]=h[a],h[a]=idx++;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">bfs</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> hh=<span class="hljs-number">0</span>,tt=<span class="hljs-number">0</span>;<br><br>    q[<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>; <span class="hljs-comment">//0号节点是编号为1的节点</span><br><br>    <span class="hljs-built_in">memset</span>(d,<span class="hljs-number">-1</span>,<span class="hljs-keyword">sizeof</span> d);<br><br>    d[<span class="hljs-number">1</span>]=<span class="hljs-number">0</span>; <span class="hljs-comment">//存储每个节点离起点的距离</span><br><br>    <span class="hljs-comment">//队列不为空时</span><br>    <span class="hljs-keyword">while</span>(hh&lt;=tt)<br>    &#123;<br>        <span class="hljs-comment">//取出队列头部节点</span><br>        <span class="hljs-keyword">int</span> t=q[hh++];<br><br>        <span class="hljs-comment">//遍历t节点的每一个邻边</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=h[t];i!=<span class="hljs-number">-1</span>;i=ne[i])<br>        &#123;<br>            <span class="hljs-keyword">int</span> j=e[i];<br>            <span class="hljs-comment">//如果j没有被扩展过</span><br>            <span class="hljs-keyword">if</span>(d[j]==<span class="hljs-number">-1</span>)<br>            &#123;<br>                d[j]=d[t]+<span class="hljs-number">1</span>; <span class="hljs-comment">//d[j]存储j节点离起点的距离，并标记为访问过</span><br>                q[++tt] = j; <span class="hljs-comment">//把j结点 压入队列</span><br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> d[n];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin&gt;&gt;n&gt;&gt;m;<br>    <span class="hljs-built_in">memset</span>(h,<span class="hljs-number">-1</span>,<span class="hljs-keyword">sizeof</span> h);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;m;i++)<br>    &#123;<br>        <span class="hljs-keyword">int</span> a,b;<br>        cin&gt;&gt;a&gt;&gt;b;<br>        <span class="hljs-built_in">add</span>(a,b);<br>    &#125;<br><br>    cout&lt;&lt;<span class="hljs-built_in">bfs</span>()&lt;&lt;endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>容易踩坑：</strong></p>
+<p>使用手写的队列时，一定注意<code>++</code>操作的顺序</p>
+<ul>
+<li>在入队时，<code>h[++tt]=x</code></li>
+<li>在出队时，<code>h[hh++]=x</code></li>
+</ul>
+<h3 id="有向图的拓扑排序"><a href="#有向图的拓扑排序" class="headerlink" title="有向图的拓扑排序"></a>有向图的拓扑排序</h3><p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/850/">848. 有向图的拓扑序列 - AcWing题库</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N=<span class="hljs-number">100010</span>;<br><span class="hljs-keyword">int</span> h[N],e[N],ne[N],idx;<br><span class="hljs-keyword">int</span> n,m;<br><span class="hljs-keyword">int</span> q[N],d[N];<span class="hljs-comment">//q表示队列,d表示点的入度</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>    e[idx]=b;<br>    ne[idx]=h[a];<br>    h[a]=idx++;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">topsort</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> hh=<span class="hljs-number">0</span>,tt=<span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)<br>     <span class="hljs-keyword">if</span>(!d[i]) <br>     q[++tt]=i;<span class="hljs-comment">//将入度为零的点入队</span><br>    <span class="hljs-keyword">while</span>(hh&lt;=tt)<br>    &#123;<br>        <span class="hljs-keyword">int</span> t=q[hh++];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=h[t];i!=<span class="hljs-number">-1</span>;i=ne[i])<br>        &#123;<br>            <span class="hljs-keyword">int</span> j=e[i];<br>            d[j]--;<span class="hljs-comment">//删除点t指向点j的边</span><br>            <span class="hljs-keyword">if</span>(d[j]==<span class="hljs-number">0</span>)<span class="hljs-comment">//如果点j的入度为零了,就将点j入队</span><br>            q[++tt]=j;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> tt==n<span class="hljs-number">-1</span>;<br>    <span class="hljs-comment">//表示如果n个点都入队了话,那么该图为拓扑图,返回true,否则返回false</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin&gt;&gt;n&gt;&gt;m;<br>    <span class="hljs-built_in">memset</span>(h,<span class="hljs-number">-1</span>,<span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(h));<span class="hljs-comment">//如果程序时间溢出，就是没有加上这一句</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;m;i++)<br>    &#123;<br>        <span class="hljs-keyword">int</span> a,b;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d&quot;</span>,&amp;a,&amp;b);<br>        <span class="hljs-built_in">add</span>(a,b);<span class="hljs-comment">//因为是a指向b,所以b点的入度要加1</span><br>        d[b]++;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">topsort</span>()) <br>    &#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,q[i]);<br>        <span class="hljs-comment">//经上方循环可以发现队列中的点的次序就是拓扑序列</span><br>        <span class="hljs-comment">//注:拓扑序列的答案并不唯一,可以从解析中找到解释</span><br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;-1&quot;</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/21/PAT-ADV-%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0-0x0002/">
+                        <span class="hidden-mobile">PAT_ADV 刷题笔记 0x0002</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
