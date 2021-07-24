@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>Bellman Ford、SPFA和Floyd - Bayern2jz&#39;sBlog | Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Bayern2JZ's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Bellman Ford、SPFA和Floyd">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-23 16:22" pubdate>
+        2021年7月23日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Bellman Ford、SPFA和Floyd</h1>
+            
+            <div class="markdown-body">
+              <h3 id="Bellman-Ford"><a href="#Bellman-Ford" class="headerlink" title="Bellman-Ford"></a>Bellman-Ford</h3><blockquote>
+<p>Bellman-Ford是一种很暴力的最短路算法</p>
+<p>擅长解决有边数限制的最短路问题</p>
+</blockquote>
+<p><strong>模板题：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/855/">853. 有边数限制的最短路 - AcWing题库</a></p>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">100010</span>;<br><span class="hljs-keyword">int</span> dist[N], backup[N];<br><span class="hljs-keyword">int</span> k, n, m;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">edge</span> &#123;</span><br>    <span class="hljs-keyword">int</span> a; <span class="hljs-keyword">int</span> b; <span class="hljs-keyword">int</span> w;<br>&#125;edge[N];<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">bellman_ford</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">memset</span>(dist, <span class="hljs-number">0x3f</span>, <span class="hljs-keyword">sizeof</span> dist);<br>    dist[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= k; i++)        <span class="hljs-comment">//这里迭代k次，意味着从1号点，经过  不超过k条边  ，的最短路的距离</span><br>    &#123;<br>        <span class="hljs-built_in">memcpy</span>(backup, dist, <span class="hljs-keyword">sizeof</span> dist);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++)<br>        &#123;<br>            <span class="hljs-keyword">int</span> a = edge[j].a, b = edge[j].b, w = edge[j].w;<br>            dist[b] = <span class="hljs-built_in">min</span>(dist[b], backup[a] + w);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (dist[n] &gt;= <span class="hljs-number">0x3f3f3f3f</span> / <span class="hljs-number">2</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> dist[n];<br>&#125;<br><br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++)<br>    &#123;<br>        <span class="hljs-keyword">int</span> a, b, c;<br>        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;<br>        edge[i].a = a, edge[i].b = b, edge[i].w = c;<br>    &#125;<br>    <span class="hljs-keyword">int</span> t = <span class="hljs-built_in">bellman_ford</span>();<br>    <span class="hljs-keyword">if</span> (t == <span class="hljs-number">-1</span>)<span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;impossible&quot;</span>);<br>    <span class="hljs-keyword">else</span> cout &lt;&lt; t &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>算法原理：</strong></p>
+<p>连续进行松弛，在每次松弛时把每条边都更新一下，若在 n-1 次松弛后还能更新，则说明图中有负环，因此无法得出结果，否则就完成。</p>
+<p><strong>需要注意的点</strong></p>
+<ol>
+<li>bellman ford算法中，迭代次数<code>k</code>具有实际意义</li>
+</ol>
+<blockquote>
+<p>每轮迭代中的<code>dist</code>数组表示，从起点开始，经过不超过<code>k</code>条边，到达对应点的最短距离</p>
+</blockquote>
+<ol start="2">
+<li><p>为了保证上述性质，需要把<code>dist</code>数组进行一个备份，这样防止每次更新的时候出现串联</p>
+</li>
+<li><p>bellman ford 一般无法在负环的图中使用，但是也有特殊情况</p>
+<ul>
+<li>如果负环不在<code>1</code>-&gt;<code>n</code>的路径上，或者 题目对经过的边数有限制 还是可以使用Bellman-Ford算法</li>
+</ul>
+</li>
+<li><p>由于存在负权边，因此<code>return -1</code>的条件要改成<code>dist[n]&gt;0x3f3f3f3f/2</code></p>
+</li>
+<li><p>为什么无需对重边和自环作单独处理？</p>
+<ul>
+<li>重边：由于遍历了所有的边，总会遍历到较短的那一条</li>
+<li>自环: 有自环就有自环，反正又不会死循环</li>
+</ul>
+</li>
+<li><p>如何利用bellman ford判断负环？</p>
+<ul>
+<li>在没有环的图中，<code>n-1</code>次遍历一定可以<strong>确定</strong>所有点的最短路径</li>
+<li>如果图中存在负环，那么在第<code>n</code>次遍历的时候，还会继续<strong>绕圈圈</strong>，使值更新</li>
+</ul>
+</li>
+<li><p>什么时候使用这个算法？</p>
+<p>解决有边数限制的最短路问题。</p>
+</li>
+</ol>
+<h3 id="SPFA"><a href="#SPFA" class="headerlink" title="SPFA"></a>SPFA</h3><blockquote>
+<p>SPFA算法由Bellman-Ford优化而来</p>
+<p>在Bellman-Ford算法中，每次松弛所有的点，但是有很多的边遍历了其实没有什么意义，我们只用遍历那些到源点距离变小的点所连接的边即可，只有当一个点的前驱结点更新了，该节点才会得到更新</p>
+<p>考虑到这个特性，SPFA进行了优化，每次不松弛所有的点，而只松弛<strong>可能更新的点</strong></p>
+</blockquote>
+<p>模板题：<br><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/853/">851. spfa求最短路 - AcWing题库</a></p>
+<p>代🐎</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;queue&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">typedef</span> pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; PII;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">150010</span>;<br><br><span class="hljs-keyword">int</span> n, m;<br><br><span class="hljs-keyword">int</span> e[N], ne[N], w[N], h[N], idx;<br><br><span class="hljs-keyword">int</span> dist[N];<br><span class="hljs-keyword">bool</span> st[N];	<span class="hljs-comment">//st数组存的是，当前点是否在队列中</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> c)</span></span><br><span class="hljs-function"></span>&#123;<br>	e[idx] = b;<br>	w[idx] = c;<br>	ne[idx] = h[a];<br>	h[a] = idx++;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">spfa</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">memset</span>(dist, <span class="hljs-number">0x3f</span>, <span class="hljs-keyword">sizeof</span> dist);<br>	dist[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br><br>	queue&lt;<span class="hljs-keyword">int</span>&gt; q;<br>	q.<span class="hljs-built_in">push</span>(<span class="hljs-number">1</span>);<br>	st[<span class="hljs-number">1</span>] = <span class="hljs-literal">true</span>;	<br><br>	<span class="hljs-keyword">while</span> (q.<span class="hljs-built_in">size</span>())<br>	&#123;<br>		<span class="hljs-keyword">int</span> t = q.<span class="hljs-built_in">front</span>();<br>		q.<span class="hljs-built_in">pop</span>();<br><br>		st[t] = <span class="hljs-literal">false</span>;		<span class="hljs-comment">//从队列中取出来之后该节点st被标记为false,代表之后该节点如果发生更新可再次入队</span><br><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = h[t]; i != <span class="hljs-number">-1</span>; i = ne[i])<br>		&#123;<br>			<span class="hljs-keyword">int</span> j = e[i];<br><br>			<span class="hljs-keyword">if</span> (dist[j] &gt; dist[t] + w[i])<br>			&#123;<br>				dist[j] = dist[t] + w[i];<br>				<span class="hljs-keyword">if</span> (!st[j])	<span class="hljs-comment">//当前已经加入队列的结点，无需再次加入队列，即便发生了更新也只用更新数值即可，重复添加降低效率</span><br>				&#123;<br>					q.<span class="hljs-built_in">push</span>(j);<br>					st[j] = <span class="hljs-literal">true</span>;<br>				&#125;<br>			&#125;<br>		&#125;<br>	&#125;<br><br><br>	<span class="hljs-keyword">if</span> (dist[n] == <span class="hljs-number">0x3f3f3f3f</span>)<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-keyword">return</span> dist[n];<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">memset</span>(h, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span> h);<br>	cin &gt;&gt; n &gt;&gt; m;<br><br>	<span class="hljs-keyword">while</span> (m--)<br>	&#123;<br>		<span class="hljs-keyword">int</span> a, b, c;<br>		cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;<br>		<span class="hljs-built_in">add</span>(a, b, c);<br>	&#125;<br><br>	<span class="hljs-keyword">int</span> res = <span class="hljs-built_in">spfa</span>();<br>	<span class="hljs-keyword">if</span> (res == <span class="hljs-number">-1</span>) <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;impossible&quot;</span>);<br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, res);<br>	<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>值得注意的点：</p>
+<ol>
+<li><p>如何维护<strong>距离更新了的点</strong>？</p>
+<p>创建一个<code>queue&lt;int&gt; q</code>，如果当前点的距离有更新，就把这个点入队。</p>
+</li>
+<li><p>⭐ 为什么返回条件是<code>0x3f3f3f3f</code>而不是bellman-ford算法中的<code>0x3f3f3f3f/2</code>?</p>
+<p>Bellman Ford算法会遍历所有的边，因此不管是不是和源点连通的边它都会得到更新；</p>
+<p>但是SPFA算法不一样，它相当于采用了BFS，因此遍历到的结点都是与源点连通的，因此如果你要求的<code>n</code>和源点不连通，它不会得到更新，还是保持的<code>0x3f3f3f3f</code>。</p>
+</li>
+<li><p>🌞 Bellman Ford算法可以存在负权回路，是因为其循环的次数是有限制的因此最终不会发生死循环；</p>
+<p>SPFA算法<strong>不可以存在负权回路</strong>，由于用了队列来存储，<strong>只要发生了更新就会不断的入队</strong>，因此假如有负权回路请你不要用SPFA否则会死循环。</p>
+</li>
+<li><p>SPFA算法仅仅是对Bellman Ford算法进行了优化，假如题目时间允许可以直接用SPFA算法去解Dijkstra算法的题目</p>
+<p>但是如果遇到了不过气的出题人🤬，SPFA可能会被卡掉。</p>
+</li>
+</ol>
+<p><strong>如何使用SPFA来判断负环</strong>：</p>
+<ul>
+<li>方法 1：统计每个点入队的次数，如果某个点入队<code>n</code>次，则说明存在负环</li>
+<li>方法 2：统计当前每个点的最短路中所包含的边数，如果某点的最短路所包含的边数大于等于<code>n</code>，则也说明存在环</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/854/">852. spfa判断负环 - AcWing题库</a></p>
+<p>代🐎：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;queue&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">typedef</span> pair&lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt; PII;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">150010</span>;<br><br><span class="hljs-keyword">int</span> n, m;<br><br><span class="hljs-keyword">int</span> e[N], ne[N], w[N], h[N], idx;<br><br><span class="hljs-keyword">int</span> cnt[N];<br><br><span class="hljs-keyword">int</span> dist[N];<br><span class="hljs-keyword">bool</span> st[N];	<span class="hljs-comment">//st数组存的是，当前点是否在队列中</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> c)</span></span><br><span class="hljs-function"></span>&#123;<br>	e[idx] = b;<br>	w[idx] = c;<br>	ne[idx] = h[a];<br>	h[a] = idx++;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">spfa</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<br>	queue&lt;<span class="hljs-keyword">int</span>&gt; q;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>	&#123;<br>		q.<span class="hljs-built_in">push</span>(i);<br>		st[i] = <span class="hljs-literal">true</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">while</span> (q.<span class="hljs-built_in">size</span>())<br>	&#123;<br>		<span class="hljs-keyword">int</span> t = q.<span class="hljs-built_in">front</span>();<br>		q.<span class="hljs-built_in">pop</span>();<br><br>		st[t] = <span class="hljs-literal">false</span>;		<br><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = h[t]; i != <span class="hljs-number">-1</span>; i = ne[i])<br>		&#123;<br>			<span class="hljs-keyword">int</span> j = e[i];<br><br>			<span class="hljs-keyword">if</span> (dist[j] &gt; dist[t] + w[i])<br>			&#123;<br>				dist[j] = dist[t] + w[i];<br>				<br>				<span class="hljs-comment">/*核心代码*/</span><br>				cnt[j] = cnt[t] + <span class="hljs-number">1</span>; <span class="hljs-comment">//编号编号为j的节点到起点所经过的路径数量为 cnt[t] + 1</span><br>				<span class="hljs-keyword">if</span> (cnt[j] &gt;= n)	<span class="hljs-comment">//如果超过了n-1 根据抽屉原理，说明经过某个节点两次，则说明有环</span><br>					<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>				<span class="hljs-comment">/*********/</span><br><br>				<span class="hljs-keyword">if</span> (!st[j])<br>				&#123;<br>					q.<span class="hljs-built_in">push</span>(j);<br>					st[j] = <span class="hljs-literal">true</span>;<br>				&#125;<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">memset</span>(h, <span class="hljs-number">-1</span>, <span class="hljs-keyword">sizeof</span> h);<br>	cin &gt;&gt; n &gt;&gt; m;<br><br>	<span class="hljs-keyword">while</span> (m--)<br>	&#123;<br>		<span class="hljs-keyword">int</span> a, b, c;<br>		cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;<br>		<span class="hljs-built_in">add</span>(a, b, c);<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-built_in">spfa</span>()) cout &lt;&lt; <span class="hljs-string">&quot;Yes&quot;</span>;<br>	<span class="hljs-keyword">else</span> cout &lt;&lt; <span class="hljs-string">&quot;No&quot;</span>;<br>	<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li><p>若<code>dist[j] &gt; dist[t] + w[i]</code>,则表示从<code>t</code>点走到<code>j</code>点能够让权值变少，因此进行对该点<code>j</code>进行更新，并且对应<code>cnt[j] = cnt[t] + 1</code>,往前走一步</p>
+</li>
+<li><p><code>cnt[x]</code> 记录当前<code>x</code>点到源点最短路的边数，初始每个点到源点的距离为<code>0</code>，只要他能再走<code>n</code>步，即<code>cnt[x] &gt;= n</code>，则表示该图中一定存在负环</p>
+<ul>
+<li><p>为什么<code>cnt[x] &gt;= n</code>意味着有负环？</p>
+<p>由于从虚拟源点到<code>x</code>至少经过<code>n</code>条边时，则说明图中至少有<code>n + 1</code>个点，表示一定有点是重复使用，即有负环。</p>
+</li>
+</ul>
+</li>
+<li><p>该题是判断是否存在负环，并非判断是否存在从1开始的负环，因此需要将所有的点都加入队列中，更新周围的点。</p>
+</li>
+</ol>
+<h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><blockquote>
+<p>这个算法是动态规划的思想，时间复杂度O(n^3)</p>
+<p>可以求解多源汇最短路</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/856/">854. Floyd求最短路 - AcWing题库</a></p>
+<p>代🐎：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">210</span>;<br><br><span class="hljs-keyword">int</span> g[N][N];<br><span class="hljs-keyword">int</span> dist[N][N];<br><br><span class="hljs-keyword">int</span> n, m, k;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">floyd</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> k = <span class="hljs-number">1</span>; k &lt;= n; k++)<br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++)<br>				g[i][j] = <span class="hljs-built_in">min</span>(g[i][j], g[i][k] + g[k][j]);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;<br><br>	<span class="hljs-built_in">memset</span>(g, <span class="hljs-number">0x3f</span>, <span class="hljs-keyword">sizeof</span> g);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= n; i++)<br>		g[i][i] = <span class="hljs-number">0</span>;<br><br>	<span class="hljs-keyword">while</span> (m--)<br>	&#123;<br>		<span class="hljs-keyword">int</span> a, b, c;<br>		cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;<br>		g[a][b] = <span class="hljs-built_in">min</span>(g[a][b], c);<br>	&#125;<br><br>	<span class="hljs-built_in">floyd</span>();<br><br>	<span class="hljs-keyword">while</span> (k--)<br>	&#123;<br>		<span class="hljs-keyword">int</span> a, b;<br>		cin &gt;&gt; a &gt;&gt; b;<br>		<span class="hljs-keyword">if</span> (g[a][b] &gt;= <span class="hljs-number">0x3f3f3f3f</span>/<span class="hljs-number">2</span>)<br>			cout &lt;&lt; <span class="hljs-string">&quot;impossible&quot;</span> &lt;&lt; endl;<br>		<span class="hljs-keyword">else</span><br>			cout &lt;&lt; g[a][b] &lt;&lt; endl;<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>值得注意的点：</p>
+<ol>
+<li><p>状态转移方程的推导</p>
+<p><code>g[i, j, k]</code>表示从<code>i</code>走到<code>j</code>的路径上除<code>i</code>和<code>j</code>点外只经过<code>1</code>到<code>k</code>的点的所有路径的最短距离。那么<code>g[i, j, k] = min(g[i, j, k - 1)</code>, <code>g[i, k, k - 1] + g[k, j, k - 1]</code>。</p>
+<p>利用滚动数组特性，去除<code>k</code>层后：</p>
+<p><code>g[i][j] = min(g[i][j], g[i][k] + g[k][j])</code></p>
+</li>
+<li><p>为什么循环<code>k</code>一定要放在最外层？</p>
+<p>因为在计算第<code>k</code>层的<code>f[i, j]</code>的时候必须先将第<code>k - 1</code>层的所有状态计算出来。</p>
+</li>
+<li><p>不同于前面的最短路算法使用了<code>dist</code>数组存储最短路径，Floyd算法直接使用在原图<code>g</code>上进行操作，最短路结果也体现在<code>g</code>上。</p>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">基础算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Bellman-Ford/">Bellman-Ford</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SPFA/">SPFA</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/">最短路</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Floyd/">Floyd</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/23/Dijkstra-%E6%9C%B4%E7%B4%A0%E7%89%88%E5%92%8C%E5%A0%86%E4%BC%98%E5%8C%96/">
+                        <span class="hidden-mobile">Dijkstra (朴素版和堆优化)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
