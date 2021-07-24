@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>最小生成树和二分图 - Bayern2jz&#39;sBlog | Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Bayern2JZ's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="最小生成树和二分图">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-24 15:31" pubdate>
+        2021年7月24日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">最小生成树和二分图</h1>
+            
+            <div class="markdown-body">
+              <h3 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h3><p><img src="1.png" srcset="/img/loading.gif" lazyload alt="image-20210724135836368"></p>
+<p><img src="2.png" srcset="/img/loading.gif" lazyload alt="image-20210724135904422"></p>
+<h3 id="朴素Prim"><a href="#朴素Prim" class="headerlink" title="朴素Prim"></a>朴素Prim</h3><blockquote>
+<p>Prim算法采用的是一种贪心策略</p>
+<p>每次将离连通部分的最近的点和点对应的边加入的连通部分，连通部分逐渐扩大，最后将整个图连通起来，并且边长之和最小。</p>
+<p>朴素版Prim和Dijkstra算法非常相似，Dijkstra算法是更新到起始点的距离，Prim是更新到集合S的距离</p>
+</blockquote>
+<p><strong>伪代码</strong>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> dist[n],state[n],pre[n];<br>dist[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(i : <span class="hljs-number">1</span> ~ n)<br>&#123;<br>    t &lt;- 没有连通起来，但是距离连通部分最近的点;<br>    state[t] = <span class="hljs-number">1</span>;<br>    更新 dist 和 pre;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>模板题:<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/860/">858. Prim算法求最小生成树 - AcWing题库</a></p>
+<p><strong>代🐎：（这题y总的代码不太好）</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">510</span>, INF = <span class="hljs-number">0x3f3f3f3f</span>;<br><br><span class="hljs-keyword">int</span> n, m;<br><span class="hljs-keyword">int</span> g[N][N];<br><span class="hljs-keyword">int</span> dist[N];<br><span class="hljs-keyword">bool</span> st[N];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">prim</span><span class="hljs-params">()</span>    <span class="hljs-comment">//如果图不连通返回INF, 否则返回res</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">memset</span>(dist, <span class="hljs-number">0x3f</span>, <span class="hljs-keyword">sizeof</span> dist);<br><br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>    &#123;<br>        <span class="hljs-keyword">int</span> t = <span class="hljs-number">-1</span>;<br>        <span class="hljs-comment">//寻找还没加入集合的点中，离集合S最近的点</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++)<br>            <span class="hljs-keyword">if</span> (!st[j] &amp;&amp; (t == <span class="hljs-number">-1</span> || dist[t] &gt; dist[j]))<br>                t = j;<br><br>        <span class="hljs-comment">//如果离集合S最近的点距离也是INF，说明图不连通</span><br>        <span class="hljs-keyword">if</span> (i &amp;&amp; dist[t] == INF) <span class="hljs-keyword">return</span> INF;<br><br>        <span class="hljs-comment">//更新树的总权重，并将这个点加入到集合中</span><br>        <span class="hljs-keyword">if</span> (i) res += dist[t];<br>        st[t] = <span class="hljs-literal">true</span>;<br><br>        <span class="hljs-comment">//更新其它点到集合的距离</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <br>            <span class="hljs-keyword">if</span>(!st[j]) dist[j] = <span class="hljs-built_in">min</span>(dist[j], g[t][j]);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d&quot;</span>, &amp;n, &amp;m);<br><br>    <span class="hljs-built_in">memset</span>(g, <span class="hljs-number">0x3f</span>, <span class="hljs-keyword">sizeof</span> g);<br><br>    <span class="hljs-keyword">while</span> (m--)<br>    &#123;<br>        <span class="hljs-keyword">int</span> a, b, c;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d%d&quot;</span>, &amp;a, &amp;b, &amp;c);<br>        g[a][b] = g[b][a] = <span class="hljs-built_in">min</span>(g[a][b], c);<br>    &#125;<br><br>    <span class="hljs-keyword">int</span> t = <span class="hljs-built_in">prim</span>();<br><br>    <span class="hljs-keyword">if</span> (t == INF) <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;impossible&quot;</span>);<br>    <span class="hljs-keyword">else</span> <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, t);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>值得注意的点：</strong></p>
+<ol>
+<li><p>为什么<code>if (i &amp;&amp; dis[t] == INF) </code> 返回<code>-1</code>，这里的<code>i</code>如何理解</p>
+<ul>
+<li><p><code>if (i &amp;&amp; dis[t] == INF)</code>表示第<code>i</code>次迭代，对于生成树的距离为无穷大，表示点<code>t</code>与生成树不连通。</p>
+</li>
+<li><p>但是第一个点初始化的时候要特判，因为这会还没有生成树集合产生。</p>
+</li>
+<li><p>同样地<code>if(i) res += dist[t];</code>表示第<code>i</code>次点<code>t</code>对于生成树集合的距离的累加，如果第一次，生成树只有一个点，不存在边的距离。</p>
+</li>
+</ul>
+</li>
+<li><p>之所以需要反复对<code>i==0</code>的情况进行特殊判断，是因为y总的模板需要在第一次循环时，所有的<code>dist[]</code>都是正无穷，所以需要进行特殊判断</p>
+</li>
+<li><p>为了解决上述问题，可以优化为下方代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">prim</span><span class="hljs-params">()</span>	<span class="hljs-comment">//如果图不连通返回INF, 否则返回res</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">memset</span>(dist, <span class="hljs-number">0x3f</span>, <span class="hljs-keyword">sizeof</span> dist);<br><br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    dist[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;	<span class="hljs-comment">//声明起点为1</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>    &#123;<br>        <span class="hljs-comment">//寻找到集合距离最短的点</span><br>        <span class="hljs-keyword">int</span> t = <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j ++ )<br>            <span class="hljs-keyword">if</span> (!st[j] &amp;&amp; (t == <span class="hljs-number">-1</span> || dist[t] &gt; dist[j]))<br>                t = j;<br>		<br>        <span class="hljs-comment">//点到集合距离最短都是INF,说明图不连通</span><br>        <span class="hljs-keyword">if</span> (dist[t] == INF) <span class="hljs-keyword">return</span> INF;<br><br>        <span class="hljs-comment">//将找到的点加入到集合中并更新res</span><br>        res += dist[t];<br>        st[t] = <span class="hljs-literal">true</span>;<br>		<br>        <span class="hljs-comment">//更新其余点到集合的距离</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j ++ )<br>            <span class="hljs-keyword">if</span>(!st[j]) dist[j] = <span class="hljs-built_in">min</span>(dist[j], g[t][j]);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>🙄如何存储并输出最小生成树的各个边？</li>
+</ol>
+<ul>
+<li><p>用一个 <code>pre</code> 数组保存节点的是和谁连通的。<code>pre[i] = k</code> 表示节点 <code>i</code> 和节点 <code>k</code> 之间需要有一条边。初始时，<code>pre</code> 的各个元素置为 <code>-1</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">prim</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">memset</span>(dt,<span class="hljs-number">0x3f</span>, <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(dt));<span class="hljs-comment">//初始化距离数组</span><br>    <span class="hljs-keyword">int</span> res= <span class="hljs-number">0</span>;<br>    dist[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;<span class="hljs-comment">//从 1 号节点开始生成 </span><br>    <br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<span class="hljs-comment">//每次循环选出一个点加入到生成树,一共循环n次</span><br>    &#123;<br>        <span class="hljs-keyword">int</span> t = <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++)<span class="hljs-comment">//每个节点一次判断</span><br>        &#123;<br>            <span class="hljs-keyword">if</span>(!st[j] &amp;&amp; (t == <span class="hljs-number">-1</span> || dt[j] &lt; dist[t]))<span class="hljs-comment">//如果没有在树中，且到树的距离最短，则选择该点</span><br>                t = j;<br>        &#125;<br><br>        st[t] = <span class="hljs-number">1</span>;<span class="hljs-comment">// 选择该点</span><br>        res += dt[t];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<span class="hljs-comment">//更新生成树外的点到生成树的距离</span><br>        &#123;<br>            <span class="hljs-keyword">if</span>(dt[i] &gt; g[t][i] &amp;&amp; !st[i])<span class="hljs-comment">//从 t 到节点 i 的距离小于原来距离，则更新。</span><br>            &#123;<br>                dist[i] = g[t][i];<span class="hljs-comment">//更新距离</span><br>                pre[i] = t;<span class="hljs-comment">//从 t 到 i 的距离更短，i 的前驱变为 t.</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>输出边的时候：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getPath</span><span class="hljs-params">()</span><span class="hljs-comment">//输出各个边</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = n; i &gt; <span class="hljs-number">1</span>; i--)<span class="hljs-comment">//n 个节点，所以有 n-1 条边。</span><br><br>    &#123;<br>        cout &lt;&lt; i &lt;&lt;<span class="hljs-string">&quot; &quot;</span> &lt;&lt; pre[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>&lt;&lt; endl;<span class="hljs-comment">// i 是节点编号，pre[i] 是 i 节点的前驱节点。他们构成一条边。</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><h3 id="染色法"><a href="#染色法" class="headerlink" title="染色法"></a>染色法</h3><h3 id="匈牙利算法"><a href="#匈牙利算法" class="headerlink" title="匈牙利算法"></a>匈牙利算法</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">基础算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Prim/">Prim</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Kruskal/">Kruskal</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9F%93%E8%89%B2%E6%B3%95/">染色法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/">匈牙利算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/">最小生成树</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%88%86%E5%9B%BE/">二分图</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/23/Bellman-Ford%E3%80%81SPFA%E5%92%8CFloyd/">
+                        <span class="hidden-mobile">Bellman Ford、SPFA和Floyd</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
